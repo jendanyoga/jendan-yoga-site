@@ -6,9 +6,10 @@
 <title>JenDan Yoga</title>
 <style>
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #2f2f35; background: #fff; line-height: 1.5; }
   .topbar { background: linear-gradient(180deg, #f4efff 0%, #fff 100%); padding: 24px 20px 10px; text-align: center; }
-  .logo { width: 360px; max-width: 55vw; display: block; margin: 0 auto 8px; }
+  .logo { width: 320px; max-width: 55vw; display: block; margin: 0 auto 8px; }
   .tagline { color: #8e74be; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; }
   .hero { max-width: 1180px; margin: 0 auto; padding: 26px 20px 40px; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 36px; align-items: center; }
   .hero h1 { font-size: clamp(40px, 6vw, 74px); line-height: 1.03; margin: 0 0 18px; }
@@ -35,14 +36,18 @@
   .video-wrap { background: #faf8ff; border: 1px solid #efe7ff; border-radius: 24px; padding: 18px; }
   .video-frame { position: relative; width: 100%; padding-top: 56.25%; border-radius: 18px; overflow: hidden; }
   .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-  .placeholder-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  .placeholder { border: 2px dashed #cebfff; border-radius: 22px; min-height: 220px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; color: #775bb4; background: #fcfbff; font-weight: 700; }
+  .membership-card { background: linear-gradient(180deg, #faf8ff 0%, #ffffff 100%); border: 1px solid #ebe0ff; border-radius: 28px; padding: 30px; box-shadow: 0 16px 40px rgba(90, 63, 160, 0.10); }
+  .membership-price { font-size: 56px; line-height: 1; margin: 6px 0 8px; color:#6f44d8; font-weight: 800; }
+  .membership-sub { color:#6c6580; font-size: 20px; margin-bottom: 18px; }
+  .membership-list { margin: 0; padding-left: 22px; }
+  .membership-list li { margin: 10px 0; font-size: 18px; color:#4e4660; }
   .final-cta { text-align: center; padding-bottom: 60px; }
   footer { background: #241d31; color: #f3edff; text-align: center; padding: 28px 20px; margin-top: 30px; }
   footer .links { margin-top: 8px; color: #d3c8ef; }
   @media (max-width: 900px) {
-    .hero, .grid-2, .benefits, .testimonials, .placeholder-grid { grid-template-columns: 1fr; }
+    .hero, .grid-2, .benefits, .testimonials { grid-template-columns: 1fr; }
     .hero { padding-top: 10px; }
+    .membership-price { font-size: 44px; }
   }
 </style>
 </head>
@@ -57,8 +62,8 @@
       <h1>Balance your body. Restore your energy.</h1>
       <p class="lead">A welcoming online yoga experience that blends mindful movement, breath, and energetic awareness into one beautiful flow.</p>
       <div class="cta-row">
-        <a class="btn btn-primary" href="#">Become a Member</a>
-        <a class="btn btn-secondary" href="#">Member Login</a>
+        <a class="btn btn-primary" href="#membership">Become a Member</a>
+        <a class="btn btn-secondary" href="#membership">See Membership Details</a>
       </div>
     </div>
     <div class="hero-card">
@@ -102,6 +107,26 @@
     </div>
   </section>
 
+  <section class="section" id="membership">
+    <h2>Membership</h2>
+    <div class="membership-card">
+      <h3 style="margin:0; font-size:28px;">JenDan Yoga Membership</h3>
+      <div class="membership-price">$39</div>
+      <div class="membership-sub">Only $39 per month</div>
+      <ul class="membership-list">
+        <li><strong>2 live in-person classes each week in Daytona Beach</strong></li>
+        <li><strong>Other live online classes via Zoom</strong>, with links provided inside the member area and on the calendar page for exact days and times</li>
+        <li>Access to the <strong>JenDan Yoga member calendar page</strong> where you can see exact days, times, and upcoming classes</li>
+        <li><strong>Member video library</strong> so you can practice anytime if you miss a live class or want to revisit a favorite session</li>
+        <li>A unique yoga flow integrating <strong>Chinese meridian energy cleansing</strong> designed to support the entire energy body and overall wellness</li>
+      </ul>
+      <p class="section-lead" style="margin-top:22px; margin-bottom:18px;"><strong>All class times are listed in Eastern Time (ET)</strong> on the member calendar so you can easily convert to your local time zone.</p>
+      <p class="section-lead" style="margin-bottom:18px;">When you join JenDan Yoga, you are joining a <strong>community built around positive energy, encouragement, and personal growth</strong>. Our goal is to help people experience what we believe is <strong>the most uplifting and healing yoga practice on the planet</strong>.</p>
+      <p class="section-lead" style="margin-bottom:24px;">Whether you attend in person or join us online, each class is designed to help you move, breathe, and restore balance throughout your whole body.</p>
+      <a class="btn btn-primary" href="#">Join JenDan Yoga Today</a>
+    </div>
+  </section>
+
   <section class="section">
     <h2>What people are saying</h2>
     <div class="testimonials">
@@ -133,16 +158,22 @@
   <section class="section">
     <h2>More From the JenDan Community</h2>
     <p class="section-lead">As the JenDan Yoga community grows, we will continue sharing more class highlights, member experiences, and moments from our sessions together.</p>
-    <div class="placeholder-grid">
-      <div class="placeholder">Community Highlights<br><br>Photos and moments from JenDan Yoga classes, events, and gatherings.</div>
-      <div class="placeholder">Member Experiences<br><br>Stories and reflections from people discovering the benefits of JenDan Yoga.</div>
+    <div class="grid-2">
+      <div class="photo-card">
+        <img src="photo1.jpg" alt="JenDan Yoga community highlight" />
+        <div class="caption">Community Highlights</div>
+      </div>
+      <div class="photo-card">
+        <img src="photo2.jpg" alt="JenDan Yoga member experience" />
+        <div class="caption">Member Experiences</div>
+      </div>
     </div>
   </section>
 
   <section class="section final-cta">
     <h2>Ready to begin?</h2>
     <p class="section-lead" style="margin-left:auto; margin-right:auto;">Step into a more mindful, connected, and energizing flow with JenDan Yoga.</p>
-    <a class="btn btn-primary" href="#">Join JenDan Yoga Today</a>
+    <a class="btn btn-primary" href="#membership">Join JenDan Yoga Today</a>
   </section>
 
   <footer>

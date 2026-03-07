@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>JenDan Yoga</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: #2f2f35; background: #fff; line-height: 1.5; }
+  .topbar { background: linear-gradient(180deg, #f4efff 0%, #fff 100%); padding: 24px 20px 10px; text-align: center; }
+  .logo { width: 180px; max-width: 55vw; display: block; margin: 0 auto 8px; }
+  .tagline { color: #8e74be; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .hero { max-width: 1180px; margin: 0 auto; padding: 26px 20px 40px; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 36px; align-items: center; }
+  .hero h1 { font-size: clamp(40px, 6vw, 74px); line-height: 1.03; margin: 0 0 18px; }
+  .hero p.lead { font-size: clamp(18px, 2.2vw, 24px); color: #5c5568; margin: 0 0 28px; max-width: 680px; }
+  .cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; }
+  .btn { display: inline-block; padding: 15px 26px; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 18px; }
+  .btn-primary { background: linear-gradient(135deg, #7d4cff, #9b5cf6); color: #fff; }
+  .btn-secondary { background: #efe8ff; color: #693dd6; }
+  .mini-note { color: #6c6580; font-size: 14px; }
+  .hero-card { background: #fff; border-radius: 26px; overflow: hidden; box-shadow: 0 18px 45px rgba(98, 76, 156, 0.15); border: 1px solid #eee8ff; }
+  .hero-card img { width: 100%; display: block; }
+  .section { max-width: 1180px; margin: 0 auto; padding: 34px 20px 20px; }
+  .section h2 { font-size: clamp(28px, 4vw, 44px); margin: 0 0 14px; }
+  .section p.section-lead { font-size: 19px; color: #5d5567; max-width: 900px; margin: 0 0 22px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .photo-card { background: #fff; border-radius: 22px; overflow: hidden; box-shadow: 0 12px 28px rgba(70, 45, 120, 0.10); }
+  .photo-card img { width: 100%; display: block; aspect-ratio: 4 / 3; object-fit: cover; }
+  .photo-card .caption { padding: 14px 16px 18px; font-weight: 600; color: #5f5572; }
+  .benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 20px; }
+  .benefit { background: linear-gradient(180deg, #faf8ff 0%, #ffffff 100%); border: 1px solid #eee7ff; border-radius: 20px; padding: 22px; }
+  .benefit h3 { margin: 0 0 10px; font-size: 22px; }
+  .video-wrap { background: #faf8ff; border: 1px solid #efe7ff; border-radius: 24px; padding: 18px; }
+  .video-frame { position: relative; width: 100%; padding-top: 56.25%; border-radius: 18px; overflow: hidden; }
+  .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .placeholder-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .placeholder { border: 2px dashed #cebfff; border-radius: 22px; min-height: 220px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; color: #775bb4; background: #fcfbff; font-weight: 700; }
+  .testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .testimonial { background: #fff; border: 1px solid #efe7ff; border-radius: 20px; padding: 22px; box-shadow: 0 10px 24px rgba(70, 45, 120, 0.07); }
+  .stars { color: #ffb238; font-size: 22px; letter-spacing: 2px; margin-bottom: 10px; }
+  .final-cta { text-align: center; padding-bottom: 60px; }
+  footer { background: #241d31; color: #f3edff; text-align: center; padding: 28px 20px; margin-top: 30px; }
+  footer .links { margin-top: 8px; color: #d3c8ef; }
+  @media (max-width: 900px) {
+    .hero, .grid-2, .benefits, .placeholder-grid, .testimonials { grid-template-columns: 1fr; }
+    .hero { padding-top: 10px; }
+  }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <img class="logo" src="logo.png" alt="JenDan Yoga logo" />
+    <div class="tagline">A Conscious Somatic Energy Flow</div>
+  </div>
+
+  <section class="hero">
+    <div>
+      <h1>Balance your body. Restore your energy.</h1>
+      <p class="lead">A welcoming online yoga experience that blends mindful movement, breath, and energetic awareness into one beautiful flow.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#">Become a Member</a>
+        <a class="btn btn-secondary" href="#">Member Login</a>
+      </div>
+      <div class="mini-note">Update the two buttons later with your membership and login links.</div>
+    </div>
+    <div class="hero-card">
+      <img src="photo1.jpg" alt="JenDan Yoga group outdoors with arms raised" />
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>What is JenDan Yoga?</h2>
+    <p class="section-lead">JenDan Yoga brings together movement, community, and energetic alignment in a way that feels supportive, uplifting, and real. Whether someone is brand new or already on a wellness path, this is a space to breathe, stretch, and reconnect.</p>
+
+    <div class="benefits">
+      <div class="benefit">
+        <h3>Feel-Good Movement</h3>
+        <p>Gentle, strengthening practices designed to help you move with more ease and confidence.</p>
+      </div>
+      <div class="benefit">
+        <h3>Energy Awareness</h3>
+        <p>A mindful approach that supports calm, clarity, and a deeper connection to your body.</p>
+      </div>
+      <div class="benefit">
+        <h3>Supportive Community</h3>
+        <p>A welcoming environment where members can grow, breathe, and flow together.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>See JenDan Yoga in action</h2>
+    <div class="grid-2">
+      <div class="photo-card">
+        <img src="photo1.jpg" alt="JenDan Yoga participants smiling in matching shirts" />
+        <div class="caption">Real people. Real movement. Real joy.</div>
+      </div>
+      <div class="photo-card">
+        <img src="photo2.jpg" alt="JenDan Yoga participants posing together outdoors" />
+        <div class="caption">A bright, uplifting practice built around connection.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Watch our promo video</h2>
+    <p class="section-lead">Your intro video is already embedded here from YouTube.</p>
+    <div class="video-wrap">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed/2X9naipySRI" title="JenDan Yoga promo video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Add more later</h2>
+    <p class="section-lead">You asked for two spots to grow into. These are ready for future photos, reviews, or more video.</p>
+    <div class="placeholder-grid">
+      <div class="placeholder">Future content spot #1<br />Add another photo, testimonial reel, or class image here later.</div>
+      <div class="placeholder">Future content spot #2<br />Add a second video, testimonial collage, or event image here later.</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>What people are saying</h2>
+    <div class="testimonials">
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p>“JenDan Yoga feels uplifting and grounding at the same time. It brings movement and peace together beautifully.”</p>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p>“I love the positive energy, the welcoming feel, and how easy it is to join in and feel connected.”</p>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <p>“This feels like more than a class. It feels like a whole-body reset with a community around it.”</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section final-cta">
+    <h2>Ready to begin?</h2>
+    <p class="section-lead" style="margin-left:auto; margin-right:auto;">Invite visitors to join the flow with one clear next step.</p>
+    <a class="btn btn-primary" href="#">Join JenDan Yoga Today</a>
+  </section>
+
+  <footer>
+    <div>© JenDan Yoga</div>
+    <div class="links">Terms of Use | Privacy Policy | Cookie Policy</div>
+  </footer>
+</body>
+</html>

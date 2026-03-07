@@ -17,12 +17,11 @@
   .btn { display: inline-block; padding: 15px 26px; border-radius: 999px; text-decoration: none; font-weight: 700; font-size: 18px; }
   .btn-primary { background: linear-gradient(135deg, #7d4cff, #9b5cf6); color: #fff; }
   .btn-secondary { background: #efe8ff; color: #693dd6; }
-  .mini-note { color: #6c6580; font-size: 14px; }
   .hero-card { background: #fff; border-radius: 26px; overflow: hidden; box-shadow: 0 18px 45px rgba(98, 76, 156, 0.15); border: 1px solid #eee8ff; }
   .hero-card img { width: 100%; display: block; }
   .section { max-width: 1180px; margin: 0 auto; padding: 34px 20px 20px; }
   .section h2 { font-size: clamp(28px, 4vw, 44px); margin: 0 0 14px; }
-  .section p.section-lead { font-size: 19px; color: #5d5567; max-width: 900px; margin: 0 0 22px; }
+  .section p.section-lead { font-size: 19px; color: #5d5567; max-width: 980px; margin: 0 0 22px; }
   .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
   .photo-card { background: #fff; border-radius: 22px; overflow: hidden; box-shadow: 0 12px 28px rgba(70, 45, 120, 0.10); }
   .photo-card img { width: 100%; display: block; aspect-ratio: 4 / 3; object-fit: cover; }
@@ -30,19 +29,19 @@
   .benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 20px; }
   .benefit { background: linear-gradient(180deg, #faf8ff 0%, #ffffff 100%); border: 1px solid #eee7ff; border-radius: 20px; padding: 22px; }
   .benefit h3 { margin: 0 0 10px; font-size: 22px; }
+  .testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .testimonial { background: #fff; border: 1px solid #efe7ff; border-radius: 20px; padding: 22px; box-shadow: 0 10px 24px rgba(70, 45, 120, 0.07); }
+  .stars { color: #ffb238; font-size: 22px; letter-spacing: 2px; margin-bottom: 10px; }
   .video-wrap { background: #faf8ff; border: 1px solid #efe7ff; border-radius: 24px; padding: 18px; }
   .video-frame { position: relative; width: 100%; padding-top: 56.25%; border-radius: 18px; overflow: hidden; }
   .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
   .placeholder-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
   .placeholder { border: 2px dashed #cebfff; border-radius: 22px; min-height: 220px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 20px; color: #775bb4; background: #fcfbff; font-weight: 700; }
-  .testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  .testimonial { background: #fff; border: 1px solid #efe7ff; border-radius: 20px; padding: 22px; box-shadow: 0 10px 24px rgba(70, 45, 120, 0.07); }
-  .stars { color: #ffb238; font-size: 22px; letter-spacing: 2px; margin-bottom: 10px; }
   .final-cta { text-align: center; padding-bottom: 60px; }
   footer { background: #241d31; color: #f3edff; text-align: center; padding: 28px 20px; margin-top: 30px; }
   footer .links { margin-top: 8px; color: #d3c8ef; }
   @media (max-width: 900px) {
-    .hero, .grid-2, .benefits, .placeholder-grid, .testimonials { grid-template-columns: 1fr; }
+    .hero, .grid-2, .benefits, .testimonials, .placeholder-grid { grid-template-columns: 1fr; }
     .hero { padding-top: 10px; }
   }
 </style>
@@ -61,7 +60,6 @@
         <a class="btn btn-primary" href="#">Become a Member</a>
         <a class="btn btn-secondary" href="#">Member Login</a>
       </div>
-      <div class="mini-note">Update the two buttons later with your membership and login links.</div>
     </div>
     <div class="hero-card">
       <img src="photo1.jpg" alt="JenDan Yoga group outdoors with arms raised" />
@@ -70,7 +68,9 @@
 
   <section class="section">
     <h2>What is JenDan Yoga?</h2>
-    <p class="section-lead">JenDan Yoga brings together movement, community, and energetic alignment in a way that feels supportive, uplifting, and real. Whether someone is brand new or already on a wellness path, this is a space to breathe, stretch, and reconnect.</p>
+    <p class="section-lead">JenDan Yoga is a modern flow practice that blends traditional yoga movement with Chinese meridian energy work. Through mindful motion, breath, and gentle energetic cleansing techniques, the practice supports the body's natural energy pathways.</p>
+    <p class="section-lead">By helping the meridian system flow more freely, JenDan Yoga encourages balance throughout the entire energy body, supporting physical wellbeing, emotional clarity, and overall whole-body health.</p>
+    <p class="section-lead">Each session is designed to leave you feeling lighter, more aligned, and deeply connected to your body's natural rhythm.</p>
 
     <div class="benefits">
       <div class="benefit">
@@ -103,25 +103,6 @@
   </section>
 
   <section class="section">
-    <h2>Watch our promo video</h2>
-    <p class="section-lead">Your intro video is already embedded here from YouTube.</p>
-    <div class="video-wrap">
-      <div class="video-frame">
-        <iframe src="https://www.youtube.com/embed/2X9naipySRI" title="JenDan Yoga promo video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <h2>Add more later</h2>
-    <p class="section-lead">You asked for two spots to grow into. These are ready for future photos, reviews, or more video.</p>
-    <div class="placeholder-grid">
-      <div class="placeholder">Future content spot #1<br />Add another photo, testimonial reel, or class image here later.</div>
-      <div class="placeholder">Future content spot #2<br />Add a second video, testimonial collage, or event image here later.</div>
-    </div>
-  </section>
-
-  <section class="section">
     <h2>What people are saying</h2>
     <div class="testimonials">
       <div class="testimonial">
@@ -139,9 +120,28 @@
     </div>
   </section>
 
+  <section class="section">
+    <h2>Watch our promo video</h2>
+    <p class="section-lead">Get a closer look at the heart of JenDan Yoga and the energy behind the experience.</p>
+    <div class="video-wrap">
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed/2X9naipySRI" title="JenDan Yoga promo video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>More From the JenDan Community</h2>
+    <p class="section-lead">As the JenDan Yoga community grows, we will continue sharing more class highlights, member experiences, and moments from our sessions together.</p>
+    <div class="placeholder-grid">
+      <div class="placeholder">Community Highlights<br><br>Photos and moments from JenDan Yoga classes, events, and gatherings.</div>
+      <div class="placeholder">Member Experiences<br><br>Stories and reflections from people discovering the benefits of JenDan Yoga.</div>
+    </div>
+  </section>
+
   <section class="section final-cta">
     <h2>Ready to begin?</h2>
-    <p class="section-lead" style="margin-left:auto; margin-right:auto;">Invite visitors to join the flow with one clear next step.</p>
+    <p class="section-lead" style="margin-left:auto; margin-right:auto;">Step into a more mindful, connected, and energizing flow with JenDan Yoga.</p>
     <a class="btn btn-primary" href="#">Join JenDan Yoga Today</a>
   </section>
 

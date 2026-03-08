@@ -56,11 +56,13 @@
 </style>
 </head>
 <body>
+  <!-- Top bar -->
   <div class="topbar">
     <img class="logo" src="logo.png" alt="JenDan Yoga logo" />
     <div class="tagline">A Conscious Somatic Energy Flow</div>
   </div>
 
+  <!-- Hero Section -->
   <section class="hero">
     <div>
       <h1>Balance your body. Restore your energy.</h1>
@@ -76,6 +78,7 @@
     </div>
   </section>
 
+  <!-- What is JenDan Yoga Section -->
   <section class="section">
     <h2>What is JenDan Yoga?</h2>
     <p class="section-lead">JenDan Yoga is a modern flow practice that blends traditional yoga movement with Chinese meridian energy work. Through mindful motion, breath, and gentle energetic cleansing techniques, the practice supports the body's natural energy pathways.</p>
@@ -98,6 +101,7 @@
     </div>
   </section>
 
+  <!-- See JenDan Yoga in Action Section -->
   <section class="section">
     <h2>See JenDan Yoga in action</h2>
     <div class="grid-2">
@@ -112,6 +116,7 @@
     </div>
   </section>
 
+  <!-- Testimonials Section -->
   <section class="section">
     <h2>What people are saying</h2>
     <div class="testimonials">
@@ -130,6 +135,7 @@
     </div>
   </section>
 
+  <!-- Video Section -->
   <section class="section">
     <h2>Watch our promo video</h2>
     <p class="section-lead">Get a closer look at the heart of JenDan Yoga and the energy behind the experience.</p>
@@ -140,21 +146,7 @@
     </div>
   </section>
 
-  <section class="section">
-    <h2>More From the JenDan Community</h2>
-    <p class="section-lead">As the JenDan Yoga community grows, we will continue sharing more class highlights, member experiences, and moments from our sessions together.</p>
-    <div class="grid-2">
-      <div class="photo-card">
-        <img src="photo1.jpg" alt="JenDan Yoga community highlight" />
-        <div class="caption">Member Testimonials Coming Soon</div>
-      </div>
-      <div class="photo-card">
-        <img src="photo2.jpg" alt="JenDan Yoga member experience" />
-        <div class="caption">Member Testimonials Coming Soon</div>
-      </div>
-    </div>
-  </section>
-
+  <!-- Membership Section -->
   <section class="section" id="membership">
     <h2>Membership</h2>
     <div class="membership-card">
@@ -175,21 +167,44 @@
     </div>
   </section>
 
+  <!-- Final CTA -->
   <section class="section final-cta">
     <h2>Ready to begin?</h2>
     <p class="section-lead" style="margin-left:auto; margin-right:auto;">Step into a more mindful, connected, and energizing flow with JenDan Yoga.</p>
     <a class="btn btn-primary" href="https://buy.stripe.com/fZucN5eG1dWQ5pU00k53O00">Become a Member</a>
     <div class="policy-links">
-      <a href="https://themerccenters.org/terms" target="_blank" rel="noopener noreferrer">Terms &amp; Conditions</a>
+      <a href="https://themerccenters.org/terms" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
       <a href="https://themerccenters.org/privacy-policy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
       <a href="https://themerccenters.org/cookies" target="_blank" rel="noopener noreferrer">Cookie Policy</a>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer>
     <div>© 2026 The Merc Centers LLC. All Rights Reserved.</div>
     <div>JenDan Yoga is a The Merc Centers LLC entity.</div>
     <div>JenDan Yoga™ is a trademark of The Merc Centers LLC. All Rights Reserved.</div>
   </footer>
+
+  <!-- Portal lock script -->
+  <script>
+    async function checkMembershipAccess(email) {
+      try {
+        const res = await fetch('/api/check-membership?email=' + encodeURIComponent(email));
+        const data = await res.json();
+        if (data.status !== 'active') {
+          alert('Your membership is inactive or expired. Please update your payment.');
+          window.location.href = '/login'; // redirect to members login
+        }
+      } catch (err) {
+        console.error('Error checking membership:', err);
+      }
+    }
+
+    // Example: call this on page load if the member's email is known
+    // Replace with dynamic email retrieval if available
+    // checkMembershipAccess('user@example.com');
+  </script>
+
 </body>
 </html>

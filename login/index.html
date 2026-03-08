@@ -186,9 +186,7 @@
 
     const SUPABASE_URL = "https://bdiyolgyhbwtejkxpcpx.supabase.co";
     const SUPABASE_KEY = "sb_publishable_sgsZNCUzcuF4IUx9cnqySw_GYu910kd";
-
-    // Replace this if your live welcome page URL is different
-    const REDIRECT_URL = "https://themerccenters.org/jendan-welcome";
+    const REDIRECT_URL = "https://members.themerccenters.org/jendan-welcome";
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -203,6 +201,7 @@
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+
       msg.className = "message";
       msg.textContent = "";
       loginBtn.disabled = true;
@@ -217,7 +216,7 @@
       });
 
       if (error) {
-        showMessage(error.message, "error");
+        showMessage("Login failed. Check your email or password.", "error");
         loginBtn.disabled = false;
         loginBtn.textContent = "Log In";
         return;

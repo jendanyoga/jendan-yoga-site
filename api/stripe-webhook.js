@@ -9,9 +9,7 @@ const supabase = createClient(
 );
 
 export const config = {
-  api: {
-    bodyParser: false
-  }
+  api: { bodyParser: false }
 };
 
 async function getRawBody(req) {
@@ -23,15 +21,16 @@ async function getRawBody(req) {
 }
 
 export default async function handler(req, res) {
+
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   const sig = req.headers["stripe-signature"];
-
   let event;
 
   try {
+
     const rawBody = await getRawBody(req);
 
     event = stripe.webhooks.constructEvent(
@@ -39,14 +38,22 @@ export default async function handler(req, res) {
       sig,
       process.env.STRIPE_WEBHOOK_SECRET
     );
+
   } catch (err) {
+
     console.error("Webhook signature error:", err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
+
   }
 
   try {
+
     switch (event.type) {
+
+      /* NEW MEMBER SIGNUP */
+
       case "checkout.session.completed": {
+
         const session = event.data.object;
 
         const email = session.customer_details?.email || session.customer_email;
@@ -60,7 +67,9 @@ export default async function handler(req, res) {
             email,
             stripe_customer_id: customerId,
             stripe_subscription_id: subscriptionId,
-            status: "active"
+            status: "active",
+            failed_payment_at: null,
+            grace_period_until: null
           },
           { onConflict: "email" }
         );
@@ -74,48 +83,59 @@ export default async function handler(req, res) {
         break;
       }
 
+      /* PAYMENT SUCCESS */
+
       case "invoice.payment_succeeded": {
+
         const invoice = event.data.object;
 
-        const email = invoice.customer_email;
-        const customerId = invoice.customer;
         const subscriptionId = invoice.subscription;
-
-        if (!email) break;
-
-        await supabase.from("stripe_customers").upsert(
-          {
-            email,
-            stripe_customer_id: customerId,
-            stripe_subscription_id: subscriptionId,
-            status: "active"
-          },
-          { onConflict: "email" }
-        );
-
-        break;
-      }
-
-      case "invoice.payment_failed": {
-        const invoice = event.data.object;
-        const email = invoice.customer_email;
-
-        if (!email) break;
 
         await supabase
           .from("stripe_customers")
-          .update({ status: "past_due" })
-          .eq("email", email);
+          .update({
+            status: "active",
+            failed_payment_at: null,
+            grace_period_until: null
+          })
+          .eq("stripe_subscription_id", subscriptionId);
 
         break;
       }
 
+      /* PAYMENT FAILED */
+
+      case "invoice.payment_failed": {
+
+        const invoice = event.data.object;
+        const subscriptionId = invoice.subscription;
+
+        const grace = new Date();
+        grace.setHours(grace.getHours() + 48);
+
+        await supabase
+          .from("stripe_customers")
+          .update({
+            status: "past_due",
+            failed_payment_at: new Date(),
+            grace_period_until: grace
+          })
+          .eq("stripe_subscription_id", subscriptionId);
+
+        break;
+      }
+
+      /* SUBSCRIPTION CANCELED */
+
       case "customer.subscription.deleted": {
+
         const subscription = event.data.object;
 
         await supabase
           .from("stripe_customers")
-          .update({ status: "canceled" })
+          .update({
+            status: "canceled"
+          })
           .eq("stripe_subscription_id", subscription.id);
 
         break;
@@ -126,8 +146,11 @@ export default async function handler(req, res) {
     }
 
     return res.status(200).json({ received: true });
+
   } catch (error) {
+
     console.error("Webhook processing error:", error.message);
     return res.status(500).json({ error: error.message });
+
   }
 }

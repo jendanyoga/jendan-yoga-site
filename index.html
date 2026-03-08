@@ -85,22 +85,22 @@
     <p class="section-lead">By helping the meridian system flow more freely, JenDan Yoga encourages balance throughout the entire energy body, supporting physical wellbeing, emotional clarity, and overall whole-body health.</p>
     <p class="section-lead">Each session is designed to leave you feeling lighter, more aligned, and deeply connected to your body's natural rhythm.</p>
 
-    <div class="benefits">
-      <div class="benefit">
-        <h3>Feel-Good Movement</h3>
-        <p>Gentle, strengthening practices designed to help you move with more ease and confidence.</p>
-      </div>
-      <div class="benefit">
-        <h3>Energy Awareness</h3>
-        <p>A mindful approach that supports calm, clarity, and a deeper connection to your body.</p>
-      </div>
-      <div class="benefit">
-        <h3>Supportive Community</h3>
-        <p>A welcoming environment where members can grow, breathe, and flow together.</p>
-      </div>
+  <!-- Benefits Section -->
+  <div class="benefits">
+    <div class="benefit">
+      <h3>Feel-Good Movement</h3>
+      <p>Gentle, strengthening practices designed to help you move with more ease and confidence.</p>
     </div>
-  </section>
-
+    <div class="benefit">
+      <h3>Energy Awareness</h3>
+      <p>A mindful approach that supports calm, clarity, and a deeper connection to your body.</p>
+    </div>
+    <div class="benefit">
+      <h3>Supportive Community</h3>
+      <p>A welcoming environment where members can grow, breathe, and flow together.</p>
+    </div>
+  </div>
+  
   <!-- See JenDan Yoga in Action Section -->
   <section class="section">
     <h2>See JenDan Yoga in action</h2>
@@ -186,24 +186,78 @@
     <div>JenDan Yoga™ is a trademark of The Merc Centers LLC. All Rights Reserved.</div>
   </footer>
 
-  <!-- Portal lock script -->
+  <!-- Portal Lock Script -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    async function checkMembershipAccess(email) {
-      try {
-        const res = await fetch('/api/check-membership?email=' + encodeURIComponent(email));
-        const data = await res.json();
-        if (data.status !== 'active') {
-          alert('Your membership is inactive or expired. Please update your payment.');
-          window.location.href = '/login'; // redirect to members login
-        }
-      } catch (err) {
-        console.error('Error checking membership:', err);
-      }
+    const supabase = supabase.createClient(
+      "https://bdiyolgyhbwtejkxpcpx.supabase.co",
+      "sb_publishable_sgsZNCUzcuF4IUx9cnqySw_GYu910kd"
+    );
+
+    // Get logged-in member email
+    const memberEmail = supabase.auth.user()?.email;
+    const GRACE_HOURS = 48;
+
+    async function getStripeStatus(email) {
+      const { data, error } = await supabase
+        .from("stripe_customers")
+        .select("status, failed_payment_at, grace_period_until")
+        .eq("email", email)
+        .single();
+      if (error) { console.error(error); return null; }
+      return data;
     }
 
-    // Example: call this on page load if the member's email is known
-    // Replace with dynamic email retrieval if available
-    // checkMembershipAccess('user@example.com');
+    async function setGracePeriod(email) {
+      const now = new Date();
+      const graceUntil = new Date(now.getTime() + GRACE_HOURS*60*60*1000);
+      const { error } = await supabase
+        .from("stripe_customers")
+        .update({ grace_period_until: graceUntil.toISOString() })
+        .eq("email", email);
+      if (error) console.error(error);
+      return graceUntil;
+    }
+
+    async function enforceMembership() {
+      if (!memberEmail) {
+        window.location.href = "/login";
+        return;
+      }
+      const customer = await getStripeStatus(memberEmail);
+      if (!customer) return;
+      const status = customer.status;
+      const now = new Date();
+
+      if (status === "active") return;
+
+      if (status === "past_due") {
+        let graceUntil = customer.grace_period_until
+          ? new Date(customer.grace_period_until)
+          : await setGracePeriod(memberEmail);
+
+        if (now <= graceUntil) {
+          document.body.innerHTML = `
+            <div style="text-align:center;margin-top:60px;">
+              <h2>Your payment failed</h2>
+              <p>You have until <strong>${graceUntil.toLocaleString()}</strong> to make a payment before access is blocked.</p>
+              <a href="https://buy.stripe.com/fZucN5eG1dWQ5pU00k53O00" style="display:inline-block;margin-top:20px;padding:14px 28px;background:#693dd6;color:#fff;font-weight:bold;border-radius:12px;text-decoration:none;">Pay Now</a>
+            </div>
+          `;
+          return;
+        }
+      }
+
+      document.body.innerHTML = `
+        <div style="text-align:center;margin-top:60px;">
+          <h2>Access Blocked</h2>
+          <p>Your membership is inactive. Please contact support or re-subscribe to regain access.</p>
+          <a href="https://buy.stripe.com/fZucN5eG1dWQ5pU00k53O00" style="display:inline-block;margin-top:20px;padding:14px 28px;background:#693dd6;color:#fff;font-weight:bold;border-radius:12px;text-decoration:none;">Subscribe Now</a>
+        </div>
+      `;
+    }
+
+    enforceMembership();
   </script>
 
 </body>

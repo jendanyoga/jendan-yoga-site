@@ -20,12 +20,20 @@ export default async function handler(req, res) {
   let event;
 
   try {
+    const buf = await new Promise((resolve) => {
+      const chunks = [];
+      req.on("data", (chunk) => chunks.push(chunk));
+      req.on("end", () => resolve(Buffer.concat(chunks)));
+    });
+
     event = stripe.webhooks.constructEvent(
-      req.rawBody,
+      buf,
       sig,
       process.env.STRIPE_WEBHOOK_SECRET
     );
+
   } catch (err) {
+    console.error("Webhook error:", err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
@@ -33,10 +41,11 @@ export default async function handler(req, res) {
     const session = event.data.object;
     const email = session.customer_details.email;
 
-    await supabase.auth.admin.createUser({
-      email: email,
-      email_confirm: true
-    });
+    try {
+      await supabase.auth.admin.inviteUserByEmail(email);
+    } catch (error) {
+      console.error("Supabase invite error:", error);
+    }
   }
 
   res.status(200).json({ received: true });

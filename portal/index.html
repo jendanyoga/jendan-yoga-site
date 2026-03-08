@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>JenDan Member Portal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  background:#1d2b4f;
+  color:white;
+  margin:0;
+  padding:40px;
+  text-align:center;
+}
+
+.hero{
+  max-width:650px;
+  border-radius:12px;
+  margin:30px auto;
+  display:block;
+}
+
+h1{
+  margin-bottom:10px;
+}
+
+.button{
+  display:block;
+  width:320px;
+  margin:20px auto;
+  padding:18px;
+  border-radius:40px;
+  background:white;
+  color:#111;
+  text-decoration:none;
+  font-weight:bold;
+  transition:.2s;
+}
+
+.button:hover{
+  background:#e8e8e8;
+}
+
+.logout{
+  background:#ff5c5c;
+  color:white;
+}
+</style>
+</head>
+
+<body>
+
+<h1>JenDan Member Portal</h1>
+
+<img src="/photo1.jpg" class="hero" alt="JenDan Yoga members">
+
+<a class="button" href="https://themerccenters.org/jendan-schedule">
+View Live Class Schedule
+</a>
+
+<a class="button" href="https://www.youtube.com/playlist?list=PLqTmc2nkMDYGu-3xdethfErFZBhZSW6fB" target="_blank">
+JenDan Video Library
+</a>
+
+<a class="button" href="https://themerccenters.org/the-merc-store-catalog">
+JenDan Merch Store
+</a>
+
+<a class="button" href="mailto:support@themerccenters.org?subject=JenDan%20Yoga%20Support">
+Need Assistance?
+</a>
+
+<a id="logout" class="button logout" href="#">
+Logout
+</a>
+
+<script type="module">
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+const supabase = createClient(
+  "https://bdiyolgyhbwtejkxpcpx.supabase.co",
+  "sb_publishable_sgsZNCUzcuF4IUx9cnqySw_GYu910kd"
+);
+
+const { data } = await supabase.auth.getSession();
+
+if (!data.session) {
+  window.location.href = "/login/";
+}
+
+document.getElementById("logout").onclick = async (e) => {
+  e.preventDefault();
+  await supabase.auth.signOut();
+  window.location.href = "/login/";
+};
+</script>
+
+</body>
+</html>

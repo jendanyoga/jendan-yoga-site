@@ -20,32 +20,46 @@ export default async function handler(req, res) {
   let event;
 
   try {
-    const buf = await new Promise((resolve) => {
-      const chunks = [];
-      req.on("data", (chunk) => chunks.push(chunk));
-      req.on("end", () => resolve(Buffer.concat(chunks)));
+    const rawBody = await new Promise((resolve) => {
+      let data = "";
+      req.on("data", (chunk) => {
+        data += chunk;
+      });
+      req.on("end", () => {
+        resolve(Buffer.from(data));
+      });
     });
 
     event = stripe.webhooks.constructEvent(
-      buf,
+      rawBody,
       sig,
       process.env.STRIPE_WEBHOOK_SECRET
     );
 
   } catch (err) {
-    console.error("Webhook error:", err.message);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
   if (event.type === "checkout.session.completed") {
-    const session = event.data.object;
-    const email = session.customer_details.email;
 
-    try {
-      await supabase.auth.admin.inviteUserByEmail(email);
-    } catch (error) {
-      console.error("Supabase invite error:", error);
-    }
+    const session = event.data.object;
+
+    const email = session.customer_details.email;
+    const customer = session.customer;
+    const subscription = session.subscription;
+
+    await supabase.from("stripe_customers").insert([
+      {
+        email: email,
+        stripe_customer_id: customer,
+        stripe_subscription_id: subscription
+      }
+    ]);
+
+    await supabase.auth.admin.createUser({
+      email: email,
+      email_confirm: true
+    });
   }
 
   res.status(200).json({ received: true });

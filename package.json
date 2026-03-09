@@ -1,0 +1,10 @@
+{
+  "name": "jendan-yoga-site",
+  "version": "1.0.0",
+  "description": "JenDan Yoga membership automation",
+  "main": "index.js",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "stripe": "^14.25.0"
+  }
+}

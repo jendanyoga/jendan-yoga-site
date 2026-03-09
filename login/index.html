@@ -144,6 +144,20 @@
       color: #6c6580;
       margin-top: 16px;
     }
+    .forgot-wrap {
+      margin-top: 14px;
+      text-align: right;
+    }
+    .forgot-link {
+      font-size: 14px;
+      color: #7d4cff;
+      text-decoration: none;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .forgot-link:hover {
+      text-decoration: underline;
+    }
     @media (max-width: 900px) {
       .card { grid-template-columns: 1fr; }
       .form-side { padding-top: 10px; }
@@ -175,6 +189,10 @@
           <button id="loginBtn" type="submit">Log In</button>
         </form>
 
+        <div class="forgot-wrap">
+          <a href="#" id="forgotPasswordLink" class="forgot-link">Forgot Password?</a>
+        </div>
+
         <div id="msg" class="message"></div>
         <div class="tiny">After login you will be sent to your JenDan member access page.</div>
       </div>
@@ -184,15 +202,17 @@
   <script type="module">
     import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
-    const SUPABASE_URL = "https://bdiyolgyhbwtejkxpcpx.supabase.co";
+    const SUPABASE_URL = "https://bdiyolgbyhwbtejkkpcpx.supabase.co";
     const SUPABASE_KEY = "sb_publishable_sgsZNCUzcuF4IUx9cnqySw_GYu910kd";
-  const REDIRECT_URL = "/portal/";
+    const REDIRECT_URL = "/portal/";
+    const RESET_REDIRECT_URL = "https://www.jendanyoga.net/login/create-password.html";
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
     const form = document.getElementById("loginForm");
     const msg = document.getElementById("msg");
     const loginBtn = document.getElementById("loginBtn");
+    const forgotPasswordLink = document.getElementById("forgotPasswordLink");
 
     function showMessage(text, type) {
       msg.className = "message " + type;
@@ -224,6 +244,31 @@
 
       showMessage("Login successful. Redirecting...", "success");
       window.location.href = REDIRECT_URL;
+    });
+
+    forgotPasswordLink.addEventListener("click", async (e) => {
+      e.preventDefault();
+
+      msg.className = "message";
+      msg.textContent = "";
+
+      const email = document.getElementById("email").value.trim();
+
+      if (!email) {
+        showMessage("Enter your email address first, then click Forgot Password.", "error");
+        return;
+      }
+
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: RESET_REDIRECT_URL
+      });
+
+      if (error) {
+        showMessage("Unable to send reset email. Please try again.", "error");
+        return;
+      }
+
+      showMessage("Password reset email sent. Check your inbox or spam folder.", "success");
     });
   </script>
 </body>

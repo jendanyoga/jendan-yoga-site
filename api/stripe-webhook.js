@@ -62,12 +62,12 @@ export default async function handler(req, res) {
 
         if (!email) break;
 
-        await supabase.from("stripe_customers").upsert(
+        await supabase.from("members").upsert(
           {
             email,
             stripe_customer_id: customerId,
             stripe_subscription_id: subscriptionId,
-            status: "active",
+            subscription_status: "active",
             failed_payment_at: null,
             grace_period_until: null
           },
@@ -88,13 +88,12 @@ export default async function handler(req, res) {
       case "invoice.payment_succeeded": {
 
         const invoice = event.data.object;
-
         const subscriptionId = invoice.subscription;
 
         await supabase
-          .from("stripe_customers")
+          .from("members")
           .update({
-            status: "active",
+            subscription_status: "active",
             failed_payment_at: null,
             grace_period_until: null
           })
@@ -114,13 +113,31 @@ export default async function handler(req, res) {
         grace.setHours(grace.getHours() + 48);
 
         await supabase
-          .from("stripe_customers")
+          .from("members")
           .update({
-            status: "past_due",
+            subscription_status: "past_due",
             failed_payment_at: new Date(),
             grace_period_until: grace
           })
           .eq("stripe_subscription_id", subscriptionId);
+
+        break;
+      }
+
+      /* SUBSCRIPTION UPDATED (handles cancel at period end) */
+
+      case "customer.subscription.updated": {
+
+        const subscription = event.data.object;
+
+        if (subscription.cancel_at_period_end) {
+          await supabase
+            .from("members")
+            .update({
+              subscription_status: "canceling"
+            })
+            .eq("stripe_subscription_id", subscription.id);
+        }
 
         break;
       }
@@ -132,9 +149,9 @@ export default async function handler(req, res) {
         const subscription = event.data.object;
 
         await supabase
-          .from("stripe_customers")
+          .from("members")
           .update({
-            status: "canceled"
+            subscription_status: "canceled"
           })
           .eq("stripe_subscription_id", subscription.id);
 

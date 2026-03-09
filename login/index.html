@@ -1,275 +1,319 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JenDan Member Login</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: linear-gradient(180deg, #f4efff 0%, #ffffff 100%);
-      color: #2f2f35;
-    }
-    .wrap {
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 30px 20px;
-    }
-    .card {
-      width: 100%;
-      max-width: 1050px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 34px;
-      background: #fff;
-      border: 1px solid #eee8ff;
-      border-radius: 28px;
-      box-shadow: 0 18px 45px rgba(98, 76, 156, 0.15);
-      overflow: hidden;
-    }
-    .hero {
-      background: #faf8ff;
-      padding: 34px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .hero img.main {
-      width: 100%;
-      border-radius: 20px;
-      display: block;
-      margin-bottom: 22px;
-    }
-    .hero img.logo {
-      width: 180px;
-      max-width: 60%;
-      display: block;
-      margin: 0 auto 12px;
-    }
-    .hero h1 {
-      font-size: clamp(32px, 4vw, 52px);
-      line-height: 1.05;
-      margin: 0 0 14px;
-      text-align: center;
-    }
-    .hero p {
-      font-size: 18px;
-      color: #5d5567;
-      margin: 0;
-      text-align: center;
-    }
-    .form-side {
-      padding: 40px 34px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .tag {
-      color: #8e74be;
-      font-size: 13px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-      font-weight: 700;
-    }
-    .form-side h2 {
-      font-size: 36px;
-      line-height: 1.1;
-      margin: 0 0 14px;
-    }
-    .form-side p {
-      font-size: 17px;
-      color: #5d5567;
-      margin: 0 0 22px;
-    }
-    label {
-      display: block;
-      font-size: 14px;
-      font-weight: 700;
-      margin: 14px 0 8px;
-      color: #4e4660;
-    }
-    input {
-      width: 100%;
-      padding: 15px 16px;
-      border: 1px solid #ddd6f8;
-      border-radius: 14px;
-      font-size: 16px;
-      outline: none;
-    }
-    input:focus {
-      border-color: #9b5cf6;
-      box-shadow: 0 0 0 3px rgba(155, 92, 246, 0.12);
-    }
-    button {
-      width: 100%;
-      margin-top: 22px;
-      padding: 16px 20px;
-      border: 0;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #7d4cff, #9b5cf6);
-      color: #fff;
-      font-size: 18px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    button:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
-    .message {
-      margin-top: 16px;
-      padding: 12px 14px;
-      border-radius: 12px;
-      font-size: 14px;
-      display: none;
-    }
-    .message.error {
-      display: block;
-      background: #fff1f1;
-      color: #8a2b2b;
-      border: 1px solid #f1c7c7;
-    }
-    .message.success {
-      display: block;
-      background: #eefcf2;
-      color: #21643a;
-      border: 1px solid #bfe7c8;
-    }
-    .tiny {
-      font-size: 13px;
-      color: #6c6580;
-      margin-top: 16px;
-    }
-    .forgot-wrap {
-      margin-top: 14px;
-      text-align: right;
-    }
-    .forgot-link {
-      font-size: 14px;
-      color: #7d4cff;
-      text-decoration: none;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .forgot-link:hover {
-      text-decoration: underline;
-    }
-    @media (max-width: 900px) {
-      .card { grid-template-columns: 1fr; }
-      .form-side { padding-top: 10px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JenDan Member Login</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Arial,Helvetica,sans-serif;
+background:linear-gradient(180deg,#f4efff 0%,#ffffff 100%);
+color:#2f2f35
+}
+
+.wrap{
+min-height:100vh;
+display:grid;
+place-items:center;
+padding:30px 20px
+}
+
+.card{
+width:100%;
+max-width:1050px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:34px;
+background:#fff;
+border:1px solid #eee8ff;
+border-radius:28px;
+box-shadow:0 18px 45px rgba(98,76,156,.15);
+overflow:hidden
+}
+
+.hero{
+background:#faf8ff;
+padding:34px;
+display:flex;
+flex-direction:column;
+justify-content:center
+}
+
+.hero img.main{
+width:100%;
+border-radius:20px;
+display:block;
+margin-bottom:22px
+}
+
+.hero img.logo{
+width:180px;
+max-width:60%;
+display:block;
+margin:0 auto 12px
+}
+
+.hero h1{
+font-size:clamp(32px,4vw,52px);
+line-height:1.05;
+margin:0 0 14px;
+text-align:center
+}
+
+.hero p{
+font-size:18px;
+color:#5d5567;
+margin:0;
+text-align:center
+}
+
+.form-side{
+padding:40px 34px;
+display:flex;
+flex-direction:column;
+justify-content:center
+}
+
+.tag{
+color:#8e74be;
+font-size:13px;
+letter-spacing:.06em;
+text-transform:uppercase;
+margin-bottom:10px;
+font-weight:700
+}
+
+.form-side h2{
+font-size:36px;
+line-height:1.1;
+margin:0 0 14px
+}
+
+.form-side p{
+font-size:17px;
+color:#5d5567;
+margin:0 0 22px
+}
+
+label{
+display:block;
+font-size:14px;
+font-weight:700;
+margin:14px 0 8px;
+color:#4e4660
+}
+
+input{
+width:100%;
+padding:15px 16px;
+border:1px solid #ddd6f8;
+border-radius:14px;
+font-size:16px;
+outline:none
+}
+
+input:focus{
+border-color:#9b5cf6;
+box-shadow:0 0 0 3px rgba(155,92,246,.12)
+}
+
+button{
+width:100%;
+margin-top:22px;
+padding:16px 20px;
+border:0;
+border-radius:999px;
+background:linear-gradient(135deg,#7d4cff,#9b5cf6);
+color:#fff;
+font-size:18px;
+font-weight:700;
+cursor:pointer
+}
+
+button:disabled{
+opacity:.7;
+cursor:not-allowed
+}
+
+.message{
+margin-top:16px;
+padding:12px 14px;
+border-radius:12px;
+font-size:14px;
+display:none
+}
+
+.message.error{
+display:block;
+background:#fff1f1;
+color:#8a2b2b;
+border:1px solid #f1c7c7
+}
+
+.message.success{
+display:block;
+background:#eefcf2;
+color:#21643a;
+border:1px solid #bfe7c8
+}
+
+.tiny{
+font-size:13px;
+color:#6c6580;
+margin-top:16px
+}
+
+.forgot-wrap{
+margin-top:14px;
+text-align:right
+}
+
+.forgot-link{
+font-size:14px;
+color:#7d4cff;
+text-decoration:none;
+font-weight:700;
+cursor:pointer
+}
+
+.forgot-link:hover{
+text-decoration:underline
+}
+
+@media(max-width:900px){
+.card{grid-template-columns:1fr}
+.form-side{padding-top:10px}
+}
+</style>
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="card">
-      <div class="hero">
-        <img class="logo" src="../logo.png" alt="JenDan Yoga logo">
-        <img class="main" src="../photo1.jpg" alt="JenDan Yoga members">
-        <h1>Member Login</h1>
-        <p>Use the same email and password connected to your JenDan Yoga membership.</p>
-      </div>
 
-      <div class="form-side">
-        <div class="tag">JenDan Yoga</div>
-        <h2>Welcome back</h2>
-        <p>Log in below to access your member page.</p>
+<div class="wrap">
+<div class="card">
 
-        <form id="loginForm">
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" autocomplete="email" required>
+<div class="hero">
+<img class="logo" src="../logo.png" alt="JenDan Yoga logo">
+<img class="main" src="../photo1.jpg" alt="JenDan Yoga members">
+<h1>Member Login</h1>
+<p>Use the same email and password connected to your JenDan Yoga membership.</p>
+</div>
 
-          <label for="password">Password</label>
-          <input id="password" name="password" type="password" autocomplete="current-password" required>
+<div class="form-side">
 
-          <button id="loginBtn" type="submit">Log In</button>
-        </form>
+<div class="tag">JenDan Yoga</div>
+<h2>Welcome back</h2>
+<p>Log in below to access your member page.</p>
 
-        <div class="forgot-wrap">
-          <a href="#" id="forgotPasswordLink" class="forgot-link">Forgot Password?</a>
-        </div>
+<form id="loginForm">
+<label>Email</label>
+<input id="email" type="email" required>
 
-        <div id="msg" class="message"></div>
-        <div class="tiny">After login you will be sent to your JenDan member access page.</div>
-      </div>
-    </div>
-  </div>
+<label>Password</label>
+<input id="password" type="password" required>
 
-  <script type="module">
-    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+<button id="loginBtn" type="submit">Log In</button>
+</form>
 
-    const SUPABASE_URL = "https://bdiyolgbyhwbtejkkpcpx.supabase.co";
-    const SUPABASE_KEY = "sb_publishable_sgsZNCUzcuF4IUx9cnqySw_GYu910kd";
-    const REDIRECT_URL = "/portal/";
-    const RESET_REDIRECT_URL = "https://www.jendanyoga.net/login/create-password.html";
+<div class="forgot-wrap">
+<a href="#" id="forgotPasswordLink" class="forgot-link">Forgot Password?</a>
+</div>
 
-    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+<div id="msg" class="message"></div>
 
-    const form = document.getElementById("loginForm");
-    const msg = document.getElementById("msg");
-    const loginBtn = document.getElementById("loginBtn");
-    const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+<div class="tiny">
+After login you will be sent to your JenDan member access page.
+</div>
 
-    function showMessage(text, type) {
-      msg.className = "message " + type;
-      msg.textContent = text;
-    }
+</div>
+</div>
+</div>
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+<script type="module">
 
-      msg.className = "message";
-      msg.textContent = "";
-      loginBtn.disabled = true;
-      loginBtn.textContent = "Logging In...";
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value;
+const SUPABASE_URL = "https://bdiyolgbyhwbtejkkpcpx.supabase.co";
+const SUPABASE_KEY = "sb_publishable_sgsZNCUzcuF4IUx9cnqySw_GYu910kd";
 
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      });
+const REDIRECT_URL = "/portal/";
+const RESET_REDIRECT_URL = "https://www.jendanyoga.net/login/create-password.html";
 
-      if (error) {
-        showMessage("Login failed. Check your email or password.", "error");
-        loginBtn.disabled = false;
-        loginBtn.textContent = "Log In";
-        return;
-      }
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-      showMessage("Login successful. Redirecting...", "success");
-      window.location.href = REDIRECT_URL;
-    });
+const form = document.getElementById("loginForm");
+const msg = document.getElementById("msg");
+const loginBtn = document.getElementById("loginBtn");
+const forgotPasswordLink = document.getElementById("forgotPasswordLink");
 
-    forgotPasswordLink.addEventListener("click", async (e) => {
-      e.preventDefault();
+function showMessage(text,type){
+msg.className="message "+type;
+msg.textContent=text;
+}
 
-      msg.className = "message";
-      msg.textContent = "";
+form.addEventListener("submit",async(e)=>{
 
-      const email = document.getElementById("email").value.trim();
+e.preventDefault();
 
-      if (!email) {
-        showMessage("Enter your email address first, then click Forgot Password.", "error");
-        return;
-      }
+msg.className="message";
+msg.textContent="";
 
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: RESET_REDIRECT_URL
-      });
+loginBtn.disabled=true;
+loginBtn.textContent="Logging In...";
 
-      if (error) {
-        showMessage("Unable to send reset email. Please try again.", "error");
-        return;
-      }
+const email=document.getElementById("email").value.trim();
+const password=document.getElementById("password").value;
 
-      showMessage("Password reset email sent. Check your inbox or spam folder.", "success");
-    });
-  </script>
+const {error}=await supabase.auth.signInWithPassword({
+email,
+password
+});
+
+if(error){
+showMessage("Login failed. Check your email or password.","error");
+loginBtn.disabled=false;
+loginBtn.textContent="Log In";
+return;
+}
+
+showMessage("Login successful. Redirecting...","success");
+
+window.location.href=REDIRECT_URL;
+
+});
+
+forgotPasswordLink.addEventListener("click",async(e)=>{
+
+e.preventDefault();
+
+msg.className="message";
+msg.textContent="";
+
+const email=document.getElementById("email").value.trim();
+
+if(!email){
+showMessage("Enter your email address first, then click Forgot Password.","error");
+return;
+}
+
+const {error}=await supabase.auth.resetPasswordForEmail(email,{
+redirectTo:RESET_REDIRECT_URL
+});
+
+if(error){
+showMessage("Reset error: "+error.message,"error");
+return;
+}
+
+showMessage("Password reset email sent. Check your inbox or spam folder.","success");
+
+});
+
+</script>
+
 </body>
 </html>
